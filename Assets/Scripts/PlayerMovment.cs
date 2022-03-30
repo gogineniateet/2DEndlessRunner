@@ -32,30 +32,29 @@ public class PlayerMovment : MonoBehaviour
         transform.Translate(Vector3.right * moveForce * Time.deltaTime);
     }
     private void PlayerJump()
-    {
-       
+    {       
             player.gravityScale = 1.5f;
             player.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
-            isGrounded = false;
-      
+            isGrounded = false;      
     }
 
-    public void OnTriggerExit2D(Collider2D collision)
+    public void OnTriggerEnter2D(Collider2D collision)
     {
-
         if (collision.gameObject.tag == "Ground")
         {
             GroundSpawn.Instance.BackToGroundPool(collision.gameObject);
-            temp = collision.gameObject;            
+            temp = collision.gameObject;           
+
         }
     }
 
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        GroundSpawn.Instance.SpawnGround();
-        if(collision.gameObject.tag == "Ground")
+        if(collision.gameObject.tag == "isGround")
         {
+            GroundSpawn.Instance.SpawnGround();
+
             isGrounded = true;
         }
             
